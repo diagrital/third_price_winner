@@ -1,1 +1,1 @@
-web: sh setup.sh && streamlit run grand_prize_winners.py
+web: sh setup.sh && streamlit run third_price_winner.py
