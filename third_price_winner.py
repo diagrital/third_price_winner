@@ -53,45 +53,97 @@ st.markdown(page_bg_img, unsafe_allow_html=True)
 #-------------------------------------------------------Button---------------------------------------
 
 # CSS and HTML to center-align the button and customize its appearance
-centered_button = """
+centered_content = """
 <style>
 .center {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh; /* Adjust this value to control vertical alignment */
+    height: 120vh;
+}
+
+.center .giphy-container {
+    margin-bottom: 20px;
+}
+
+.center .button-container {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .center button {
-    width: 150px; /* Adjust the width to make the button larger */
-    height: 150px; /* Adjust the height to make the button larger */
-    border-radius: 50%; /* Make the button circular */
-    background-color: #007BFF; /* Set the background color */
-    color: white; /* Set the text color */
-    font-size: 16px; /* Adjust the font size */
+    width: 80px;
+    height: 40px;
+    border-radius: 40%;
+    background-color: #007BFF;
+    color: white;
+    font-size: 16px;
     cursor: pointer;
+    margin: 10px;
+}
+
+.center img {
+    max-width: 600px;
 }
 </style>
 
 <div class="center">
-    <button id="showImage">Show Image</button>
-    <img id="giphyImage" style="display: none; max-width: 300px;" src="https://i.giphy.com/media/VRhsYYBw8AE36/200w.webp" alt="Giphy Image">
+    <div class="giphy-container">
+        <img id="giphy-image" src="https://gcdnb.pbrd.co/images/kxWgiWDfzsUS.jpg?o=1" alt="Giphy Image">
+    </div>
+    <div class="button-container">
+        <button id="back-button">Back</button>
+        <button id="next-button">Next</button>
+        <button id="redirect-button">Home</button>
+    </div>
 </div>
 
 <script>
-    document.getElementById("showImage").addEventListener("click", function() {
-        // Show the Giphy image
-        document.getElementById("giphyImage").style.display = "block";
+    const images = [
+        "https://gcdnb.pbrd.co/images/kxWgiWDfzsUS.jpg?o=1",
+        "https://gcdnb.pbrd.co/images/g4rsoDUZqbEn.gif?o=1",
+        "https://gcdnb.pbrd.co/images/kxWgiWDfzsUS.jpg?o=1",
+        "https://gcdnb.pbrd.co/images/kxWgiWDfzsUS.jpg?o=1",
+        "https://gcdnb.pbrd.co/images/kxWgiWDfzsUS.jpg?o=1",
+        "https://gcdnb.pbrd.co/images/kxWgiWDfzsUS.jpg?o=1"
+    ];
 
-        // After a delay of 5 seconds, hide the button
-        setTimeout(function() {
-            document.getElementById("showImage").style.display = "none";
-        }, 5000);
+    const giphyImage = document.getElementById("giphy-image");
+    const backButton = document.getElementById("back-button");
+    const nextButton = document.getElementById("next-button");
+    const redirectButton = document.getElementById("redirect-button");
+    let currentIndex = 0;
+
+    // Function to update the image
+    function updateImage() {
+        giphyImage.src = images[currentIndex];
+    }
+
+    // Event listeners for the buttons
+    backButton.addEventListener("click", () => {
+        currentIndex = (currentIndex - 1 + images.length) % images.length;
+        updateImage();
     });
+
+    nextButton.addEventListener("click", () => {
+        currentIndex = (currentIndex + 1) % images.length;
+        updateImage();
+    });
+
+    // Redirect button behavior
+    redirectButton.addEventListener("click", () => {
+        window.open("https://coromandelhomepage-mflc32l5kyroxhjbxshxga.streamlit.app/", "_blank");
+    });
+
+    // Initial image update
+    updateImage();
 </script>
 """
 
-st.markdown(centered_button, unsafe_allow_html=True)
+st.markdown(centered_content, unsafe_allow_html=True)
 
 
 #-----------------------------------------------------------------------------------------
